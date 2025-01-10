@@ -56,3 +56,53 @@ const fs = require('fs');
 //     else console.log("folder was deleted");
     
 // })
+
+
+
+//=======================================================================
+//------------------------ append data ----------------------------------
+
+// fs.appendFile("abcd.txt"," i love coding",function(err){
+//     if(err) console.log(err);
+//     else console.log("appended data");    
+// })
+
+
+
+//=======================================================================
+//------------------------- rename file ---------------------------------
+
+// fs.rename("abcd.txt","hey.txt",function(err){
+//     if(err) console.log(err);
+//     else console.log("done");
+// })
+
+
+//=======================================================================
+//------------------------- create folder -------------------------------
+
+// fs.mkdir("hoho",function(err){
+//     if(err) console.log(err);
+//     else console.log("created done");
+// })
+
+
+//=======================================================================
+//------------------------- rename file ---------------------------------
+
+// fs.readdir("myDirectory",{withFileTypes : true},function(err,files){
+//     if(err) console.log(err);
+//     else console.log(files);
+// })
+
+
+
+
+//=======================================================================
+//------------------------- delete folder -------------------------------
+
+// fs.rm("myDirectory",{recursive : true},function(err){
+//     if(err) console.log(err);
+//     else console.log("delete successfully");
+// })
+
