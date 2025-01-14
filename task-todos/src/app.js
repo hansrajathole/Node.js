@@ -1,4 +1,11 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+const routes = require('./routes/index.routes');
 
-module.exports = app
+// Middleware to parse JSON
+app.use(express.json());
+
+// Use routes
+app.use('/api', routes);
+
+module.exports = app;
