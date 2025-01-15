@@ -4,12 +4,10 @@ let todos = [
     { id: 2, text: "Learn Express", completed: true },
   ];
   
-  // Controller for GET /todos
   const getTodos = (req, res) => {
     res.json(todos);
   };
   
-  // Controller for POST /todos
   const createTodo = (req, res) => {
     const { text, completed } = req.body;
     if (!text) {
