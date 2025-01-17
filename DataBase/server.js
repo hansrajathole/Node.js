@@ -1,5 +1,6 @@
 const app = require('./src/app')
-require("./src/db/db")
+const connect = require("./src/db/db")
+connect()
 const port = 3000
 
 app.listen(port,function(){

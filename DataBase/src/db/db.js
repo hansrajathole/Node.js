@@ -1,16 +1,16 @@
-const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017')
-.then(()=>{
-    console.log('connected to db');
-})
-.catch((err)=>{
-    console.log(err);
-})
+const mongoose = require("mongoose");
+// mongoose.connect('mongodb://localhost:27017')
+const connect = () => {
+  mongoose
+    .connect("mongodb://0.0.0.0/kodr")
+    .then(() => {
+      console.log("connected to db");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-const userSchema = new mongoose.Schema({
-    username : String,
-    email : String,
-    age : Number
-})
+};
+module.exports = connect
 
-mongoose.model("user",userSchema)   
+
