@@ -1,0 +1,28 @@
+h2{ background-color: aqua;}
+
+.chat{
+    background-color: rgb(166, 244, 244);
+    padding: 1em;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.msg{
+    background-color: rgb(31, 31, 137);
+    padding: 2px 0.5em ;
+    color: white;
+    border-radius: 5px;
+
+}
+
+button{
+    padding: 5px;
+    border-radius: 5px; 
+    font-size: 1em; 
+    margin-bottom: 10px;  
+}
+
+.btn{
+    display:flex;
+    justify-content: space-between;
+}
