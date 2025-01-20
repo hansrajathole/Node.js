@@ -1,0 +1,22 @@
+<!-- src/views/home.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/CSS/home.css">
+</head>
+<body>
+    <h1>Users</h1>
+    <div class="users-container">
+    <% users.forEach(user => { %>
+        <div class="user-card">
+            <img src="<%= user.profileImage %>" alt="Profile Image">
+            <a href="/users/<%= user._id %>">
+               <h3><%= user.username %></h3>
+             </a>
+        </div>
+     <% }); %>
+   </div>
+   <a href="/users/create">Create User</a>
+</body>
+</html>

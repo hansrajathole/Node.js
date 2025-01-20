@@ -1,0 +1,20 @@
+<!-- src/views/userDetail.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/CSS/userDetails.css">
+</head>
+<body>
+<h1>User Details</h1>
+    <div class="user-detail-container">
+        <img src="<%= user.profileImage %>" alt="Profile Image">
+       <p> <strong>Username: </strong> <%= user.username %></p>
+        <p><strong>Email: </strong> <%= user.email %></p>
+       <p> <strong>Bio: </strong> <%= user.bio %></p>
+        <p> <strong>Gender: </strong><%= user.gender %></p>
+        <p> <strong>Age: </strong> <%= user.age %></p>
+    </div>
+<a href="/">Go back to home page</a>
+</body>
+</html>

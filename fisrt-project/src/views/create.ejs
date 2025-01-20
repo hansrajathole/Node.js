@@ -1,0 +1,25 @@
+<!-- src/views/create.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/CSS/create.css">
+</head>
+<body>
+<h1>Create User</h1>
+<form action="/users" method="post">
+    <input type="text" name="username" placeholder="username" required>
+    <input type="text" name="profileImage" placeholder="profile image url" required>
+    <input type="email" name="email" placeholder="email" required>
+    <textarea name="bio" placeholder="bio"></textarea>
+    <select name="gender">
+        <option value="male">male</option>
+        <option value="female">female</option>
+        <option value="other">other</option>
+    </select>
+    <input type="number" name="age" placeholder="age">
+    <button>Create</button>
+</form>
+<a href="/">Go back to home page</a>
+</body>
+</html>
