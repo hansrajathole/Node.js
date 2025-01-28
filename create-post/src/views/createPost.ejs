@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/createPost.css">
+</head>
+<body>
+    <h1>Create a New Post</h1>
+    <form action="/create-post" method="POST">
+        <div>
+            <label for="postImage">Post Image:</label>
+            <input type="text" id="postImage" name="postImage" placeholder="Enter your post image URL">
+        </div>
+        <div>
+            <label for="caption">Caption:</label>
+            <textarea id="caption" name="caption" rows="4" cols="50" placeholder="create caption" ></textarea>
+        </div>
+        <button type="submit">Create Post</button>
+    </form>
+</body>
+</html>

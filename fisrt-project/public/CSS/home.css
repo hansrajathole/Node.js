@@ -41,10 +41,22 @@ h1 {
 }
 
 a {
-    color: #007bff;
+    color: white;
     text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    
+}
+#createuser{
+    position: absolute;
+      top:60%;
+      left:50%;
+      transform: translate(-50%,-50%);
+    background-color: #3a95f6;
+    padding: 10px 20px;
+}
+#createuser:hover{
+    background-color: #0056B3;
 }

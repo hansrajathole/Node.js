@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/home.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+    <h1>All Posts</h1>
+<div class="create">
+    <h2><%= user.username %></h2>
+    <div class="button">
+        <a href='/create'">Create Post</a>
+        <a href="/">Log Out</a>
+    </div>
+</div>
+<div id="posts">
+    <% posts.forEach(post => {  %>
+        <div class="post">
+            <img src="<%= post.postImage %>" alt="Post Image">
+           <div class="tools">
+            <a href="/home/like/<%= post._id %>"> 
+                <% if (post.likes > 0) { %> 
+                    <i class="ri-heart-fill"></i> 
+                <% } else { %> 
+                    <i class="ri-heart-line"></i> 
+                <% } %>
+                <%= post.likes %> 
+            </a>            
+            <div>
+                <i class="ri-chat-3-line"></i>
+                <i class="ri-share-forward-line"></i>
+                <a style="display: inline-block;" href="/home/delete/<%= post._id %>"><i class="ri-delete-bin-6-line"></i></a>
+            </div>
+        </div>
+        <p><%= post.caption %></p>
+        </div>
+    <% }); %>
+    <!-- Add more posts as needed -->
+</div>
+</body>
+</html>

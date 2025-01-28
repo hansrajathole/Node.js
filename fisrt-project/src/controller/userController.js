@@ -10,12 +10,24 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUserDetails = async (req, res) => {
-  const user = await User.findById(req.params.id);
+  const id =  req.params.id;
+  // console.log(id);
+  const user = await User.findById(id);
   res.render("userDetails", { user, title: "User Detail" });
 };
 
 const createUser = async (req, res) => {
   await User.create(req.body);
+  // const { username, profileImage, email, bio, gender , age} = req.body;
+  // const user = new User({
+  //   username : username,
+  //   profileImage : profileImage,
+  //   email: email,
+  //   bio: bio,
+  //   gender:gender,
+  //   age: age,
+  // });
+  // await user.save();
   res.redirect("/");
 };
 
