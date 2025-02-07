@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 p-4 fixed w-full">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-white text-lg font-semibold">My Website</a>
+            <div>
+                <a href="#" class="text-white px-4">Home</a>
+                <a href="#" class="text-white px-4">About</a>
+                <a href="/users/create-post"  class="text-white px-4 bg-red-400 py-2 rounded-md font-bold active:scale-75">New Post</a>
+                <a href="/users/logout" class="text-white px-4">Log Out</a>
+            </div>
+        </div>
+    </nav>
+<br><br><br>
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Recent Posts</h1>
+        <div class="flex flex-col  gap-5 justify-center items-center">
+            <% posts.forEach(post => { %>
+                <div class="bg-white p-4 rounded-lg shadow-md h-68 w-56">
+                    <img src="<%= post.media %>" alt="Post Image" class="w-full  object-cover rounded-md mb-4 h-48">
+                    <h2 class="text-xl font-semibold mb-2"><%= post.title %></h2>
+                    <div class="flex justify-between">
+                        <p class="text-gray-700"><%= post.caption %></p>
+                        <a href="/users/delete/<%= post._id %>" class="text-red-600 ">X</a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+ 
+</body>
+</html>
