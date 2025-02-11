@@ -8,7 +8,7 @@ module.exports.authUser = async(req, res, next) => {
         if(!token){
             return res.status(403).json({message: "Invalid token"})
         }
-        const decoded = jwt.verify(token,config.JWT_SECRET)
+        const decoded = await userModel.verifyToken(token)
 
         const user = await userModel.findOne({_id: decoded.id})
         if(!user){

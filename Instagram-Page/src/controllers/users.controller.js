@@ -32,7 +32,7 @@ module.exports.registerUserController = async function  (req , res){
         }
 
 
-        const hashedPassword = await bcrypt.hash(password, 10)
+        const hashedPassword = await userModel.hashPassword(password)
 
         const user = new userModel({
             username : username,
@@ -42,11 +42,7 @@ module.exports.registerUserController = async function  (req , res){
 
         await user.save()
 
-        const token = jwt.sign({
-            id : user._id,
-            username : user.username,
-            email : user.email
-        },config.JWT_SECRET)
+        const token = user.generateToken()
 
 
         res.status(200).json({message : "User registered successfully", token : token})
@@ -76,19 +72,15 @@ module.exports.loginUserController = async function (req , res){
             return res.status(400).json({message : "Invalid credentials"})
         }
     
-        const isMatch = await bcrypt.compare(password,isUserExist.password)
+        const isMatch = await userModel.comparePassword(password,isUserExist.password)
         
         if(!isMatch){
             return res.status(400).json({message : "Invalid credentials"})
         }
         
         
-        const token = jwt.sign({
-            id : isUserExist._id,
-            username : isUserExist.username,
-            email : isUserExist.email
-        },config.JWT_SECRET)
-    
+        const token = isUserExist.generateToken()
+        
         res.status(200).json({message : "Logged in successfully", token : token})
     
     } catch (error) {
