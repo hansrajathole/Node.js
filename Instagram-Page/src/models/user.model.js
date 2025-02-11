@@ -48,23 +48,23 @@ const userSchema = new mongoose.Schema({
 
 });
 
-userSchema.methods.generateToken = function (){
-    return token = jwt.sign({
+userSchema.methods.generateToken = function () {
+    return jwt.sign({
         id : this._id,
         username : this.username,
         email : this.email
-    }, config.JWT_SECRET)
+    },config.JWT_SECRET)
 }
 
-userSchema.statics.verifyToken = function (token){
+userSchema.statics.verifyToken = function (token) {
     return jwt.verify(token, config.JWT_SECRET)
 }
 
 userSchema.statics.hashPassword = async function (password) {
-    return await bcrypt.hash(password,10)
+    return await bcrypt.hash(password, 10)
 }
 
-userSchema.statics.comparePassword = async function (password,hash) {
+userSchema.statics.comparePassword = async function (password, hash) {
     return await bcrypt.compare(password, hash)
 }
 

@@ -80,6 +80,7 @@ module.exports.loginUserController = async function (req , res){
         
         
         const token = isUserExist.generateToken()
+        console.log(token);
         
         res.status(200).json({message : "Logged in successfully", token : token})
     
