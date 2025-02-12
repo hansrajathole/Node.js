@@ -9,9 +9,10 @@ module.exports.authUser = async(req, res, next) => {
             return res.status(403).json({message: "Invalid token"})
         }
         const decoded = await userModel.verifyToken(token)
-        console.log(decoded);
+
         
         const user = await userModel.findOne({_id: decoded.id})
+        
         if(!user){
             return res.status(404).json({message: "User not found"})
         }

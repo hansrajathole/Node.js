@@ -92,6 +92,6 @@ module.exports.loginUserController = async function (req , res){
 }
 
 module.exports.profileUserController = async function (req , res){
-
-    res.send(req.user)
+    const user = await userModel.findById(req.user._id).populate("posts")
+    res.status(200).json({message : user})
 }
