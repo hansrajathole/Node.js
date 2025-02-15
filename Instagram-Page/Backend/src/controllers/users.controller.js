@@ -44,7 +44,8 @@ module.exports.registerUserController = async function  (req , res){
 
         const token = user.generateToken()
 
-
+        console.log(user);
+        
         res.status(200).json({message : "User registered successfully", token : token})
 
 
@@ -93,5 +94,5 @@ module.exports.loginUserController = async function (req , res){
 
 module.exports.profileUserController = async function (req , res){
     const user = await userModel.findById(req.user._id).populate("posts")
-    res.status(200).json({message : user})
+    res.status(200).json(user)
 }

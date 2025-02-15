@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim : true,
         minlength: [5, "Email must be at least 5 characters long"],
-        maxlength: [20, "Email must be at most 50 characters long"]
+        maxlength: [30, "Email must be at most 50 characters long"]
     }, 
 
     password: {
@@ -36,15 +36,15 @@ const userSchema = new mongoose.Schema({
     }],
 
 
-    // followers:[{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'user'
-    // }],
+    followers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
 
-    // followings:[{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'user'
-    // }],
+    followings:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
 
 });
 
