@@ -32,18 +32,22 @@ const userSchema = new mongoose.Schema({
 
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'post'
+        ref: 'post',
+        default : [0]
+
     }],
 
 
     followers:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        default : [0]
     }],
 
     followings:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        default : [0]
     }],
 
 });

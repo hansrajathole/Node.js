@@ -44,8 +44,6 @@ module.exports.registerUserController = async function  (req , res){
 
         const token = user.generateToken()
 
-        console.log(user);
-        
         res.status(200).json({message : "User registered successfully", token : token})
 
 
@@ -81,7 +79,7 @@ module.exports.loginUserController = async function (req , res){
         
         
         const token = isUserExist.generateToken()
-        console.log(token);
+        // console.log(token);
         
         res.status(200).json({message : "Logged in successfully", token : token})
     
