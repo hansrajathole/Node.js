@@ -18,6 +18,7 @@ const Login = () => {
         })
 
         .then(response => {
+            alert(response.data.message)
             Navigate('/profile')
         })
         .catch(error => {

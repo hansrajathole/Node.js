@@ -93,7 +93,7 @@ module.exports.loginController = async function(req, res){
     }
 }
 
-module.exports.profileController = async (req,res , next) => {
+module.exports.profileController = async (req, res) => {
     try {
         const user = await User.findById(req.user._id).select("-password").populate("posts")
         if(!user) return res.status(404).json({message: "User not found"})
@@ -109,21 +109,42 @@ module.exports.profileController = async (req,res , next) => {
 
 
 module.exports.createController = async (req,res) => {
+
     try {
         const {media , caption } = req.body
+        const useerId = req.user._id
         if(!media) return res.status(400).json({message: "media is required"})
         if(!caption) return res.status(400).json({message: "caption is required"})
             
-        const newPost = new Post({media, caption})
+        const newPost = new Post({
+            user: useerId,
+            media, 
+            caption
+        })
         await newPost.save()
         await User.findOneAndUpdate(req.user._id,{
             $push: {posts: newPost._id}
         })
-        res.status(201).json({message: "post created successfully", postData: newPost})
+        res.status(201).json({message: "Post Created successfully", postData: newPost})
         
     } catch (error) {
         console.log(error)
         res.status(500).json({message: "Internal Server Error"})
         
+    }
+}
+
+module.exports.feedController = async (req,res) => {
+    try {
+        const posts = await Post.find().populate("user")
+        
+        if(!posts) {
+            return res.status(404).json({message: "No posts found"})
+        }
+        res.status(200).json({message: "user feed data found", posts})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: "Internal Server Error"})
     }
 }

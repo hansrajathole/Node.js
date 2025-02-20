@@ -36,12 +36,12 @@ const Profile = () => {
         userData && (
           <div className='p-4'>
             <div className='flex gap-4'>
-              <div className='w-36'>
-                <img src={userData.profilePicture} alt="Profile Pic" className='h-20 w-20 rounded-full' />
-                <p>Name: {userData.username}</p>
+              <div className='w-60'>
+                <img src={userData.profilePicture} alt="Profile Pic" className='h-20 w-20 rounded-full mb-2' />
+                <p className='font-semibold'>{userData.username}</p>
                 <p>bio : {userData.bio}</p>
               </div>
-              <div className=' flex gap-4' >
+              <div className=' flex gap-4 font-semibold' >
                 <h3>Followers: {userData?.followers?.length}</h3>
                 <h3>Following: {userData?.following?.length}</h3>
               </div>
@@ -53,9 +53,9 @@ const Profile = () => {
               <div className='flex gap-4'>
               {
                 userData?.posts?.map((post, index) => (
-                  <div key={index} className='mt-3 flex gap-2'>
+                  <div key={index} className='mt-3 gap-2'>
                     <img src={post.media} alt="Post" className='h-40 w-40 rounded-2xl' />
-                    {/* <p>{post.caption}</p> */}
+                    <p>{post.caption}</p>
                   </div>
                 ))
               }

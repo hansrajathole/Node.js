@@ -3,15 +3,15 @@ import {BrowserRouter as Router , Routes, Route} from "react-router-dom"
 import Register from '../views/Register/Register'
 import Login from '../views/Login/Login'
 import Profile from '../views/Profile/Profile'
-import Navbar from '../views/Navbar/Navbar'
-import Protected from '../components/Protected'
+import Navbar from '../components/Navbar/Navbar'
+import Protected from '../components/Protected/Protected'
 import CreatePost from '../views/Create/CreatePost'
+import Feed from '../Pages/Feed'
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" exact element={<Navbar/>} /> */}
-        <Route path="/" exact element={<h1>HOME</h1>} />
+        <Route path="/" exact element={<Protected><Feed/></Protected>} />
         <Route path="/register" exact element={<Register/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Protected><Profile /></Protected>} />
