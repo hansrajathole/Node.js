@@ -16,9 +16,9 @@ const Login = () => {
         .then(response => {
             console.log(response)
             localStorage.setItem("token",response?.data?.token)
-            Navigate('/profile')
+            Navigate('/')
 
-            alert(response?.data?.message)
+            // alert(response?.data?.message)
             // Redirect to home page or dashboard
         })
         .catch(error => {
@@ -61,7 +61,8 @@ const Login = () => {
                     <input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    type="email" id="email" name="email" placeholder="Enter email" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                    type="email" id="email" name="email" placeholder="Enter email" 
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-blue-50 sm:text-sm"/>
                 </div>
 
                 <div className="input-grp mb-6">
@@ -69,7 +70,8 @@ const Login = () => {
                     <input 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    type="password" id="password" name="password" placeholder="Enter password" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                    type="password" id="password" name="password" placeholder="Enter password" 
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-blue-50 sm:text-sm"/>
                 </div>
 
                 <button className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Login</button>

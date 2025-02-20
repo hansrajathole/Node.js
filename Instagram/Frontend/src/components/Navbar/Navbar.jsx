@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { MdHomeFilled } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
@@ -10,6 +11,20 @@ import { FiPlusSquare } from "react-icons/fi";
 
 
 const Navbar = () => {
+  const Navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      Navigate('/login')
+    }
+  }, [Navigate])
+  
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    Navigate('/login')
+  }
+
   return (
     <div className='bg-black text-white p-6 pt-9 h-screen w-[15%] '> 
        <div className="mb-7">
@@ -59,6 +74,11 @@ const Navbar = () => {
                  className='h-7 w-7 rounded-full'
                  alt="" /></span>
                  Profile</Link>  
+            </div>
+            <div>
+                <button 
+                onClick={() => {handleLogout()}}
+                className=' text-white px-2 cursor-pointer bg-blue-500 rounded-lg mt-7 text-lg'>Logout</button>
             </div>
         </div>
     </div>  

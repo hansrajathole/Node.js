@@ -14,7 +14,14 @@ const postsSchema = new mongoose.Schema({
     caption : {
         type: String,
         required: true
-    }
+    },
+    likes : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            default : [0]
+        }
+    ],
 })
 
 const postModel = mongoose.model('Post', postsSchema)

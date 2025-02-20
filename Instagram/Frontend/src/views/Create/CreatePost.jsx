@@ -11,7 +11,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const token = localStorage.getItem("token")
-        axios.post('http://localhost:3000/user/create', { media, caption},{
+        axios.post('http://localhost:3000/post/create', { media, caption},{
            headers: {
                 Authorization: `Bearer ${token}`
             }

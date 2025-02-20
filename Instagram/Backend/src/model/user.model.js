@@ -41,7 +41,15 @@ const userSchema = new mongoose.Schema({
     ],
     bio : {
         type: String,
-    }
+    },
+    likes : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post',
+            default : [0]
+        }
+    ],
+    
 
 }, { timestamps: true })
 
