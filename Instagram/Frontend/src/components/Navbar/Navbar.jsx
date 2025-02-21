@@ -12,13 +12,6 @@ import { FiPlusSquare } from "react-icons/fi";
 
 const Navbar = () => {
   const Navigate = useNavigate()
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      Navigate('/login')
-    }
-  }, [Navigate])
   
   const handleLogout = () => {
     localStorage.removeItem('token')

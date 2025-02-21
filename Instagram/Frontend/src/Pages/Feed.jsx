@@ -40,7 +40,6 @@ const Feed = () => {
   const likesHandler = (postId) => {
     // console.log(likes);
     const token = localStorage.getItem("token");
-    console.log(token);
     
     axios.patch(`http://localhost:3000/post/update/${postId}`, {}, {
       headers: {
