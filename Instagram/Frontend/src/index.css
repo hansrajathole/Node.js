@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/fonts/Instagram-Sans-Light.woff') format('woff'),
+         url('/fonts/custom-font.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }

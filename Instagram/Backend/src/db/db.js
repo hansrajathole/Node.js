@@ -1,6 +1,5 @@
-const config = require('../config/config')
-const mongoose = require('mongoose');
-
+import config from '../config/config.js';
+import mongoose from 'mongoose';
 // Connect to MongoDB
 const Connect = ()=>{
     mongoose.connect(config.MONGO_URI)
@@ -8,4 +7,5 @@ const Connect = ()=>{
    .catch(err => console.log(err));
 }
 
-module.exports = Connect;
+
+export default Connect;

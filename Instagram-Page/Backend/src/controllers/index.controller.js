@@ -20,7 +20,7 @@ module.exports.feedController = async (req, res) => {
 
           
 
-        res.status(200).json({ post: posts, Profile : req.user.profilePicture});
+        res.status(200).json({ post: posts });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });

@@ -1,7 +1,8 @@
-const app = require("./src/app")
-const Connect = require("./src/db/db")
-const config = require("./src/config/config")
-require("dotenv").config()
+import app from "./src/app.js"
+import Connect from "./src/db/db.js"
+import config from "./src/config/config.js"
+import dotenv from "dotenv"
+dotenv.config()
 
 const PORT = config.PORT
 

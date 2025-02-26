@@ -8,19 +8,46 @@ import { RiVideoFill } from "react-icons/ri";
 import { BsMessenger } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { FiPlusSquare } from "react-icons/fi";
+import { CiLogout } from "react-icons/ci";
+import { useState, userEffect } from 'react';
+import axios from 'axios';
 
 
 const Navbar = () => {
   const Navigate = useNavigate()
   
+    const [profile, setProfile] = useState("");
+    const token = localStorage.getItem("token");
+
+
+    useEffect(() => {
+        
+      const token = localStorage.getItem('token')
+      axios.get("http://localhost:3000/user/profile",{
+          headers :{
+              Authorization: `Bearer ${token}`
+          }
+      })
+      .then((res)=>{
+          // console.log(res.data.userData.profilePicture)
+          setProfile(res.data.userData.profilePicture)
+      })
+      .catch((err) => {
+          console.log(err)
+          // alert("Error getting profile")
+      })
+
+
+  }, [Navigate])
+
   const handleLogout = () => {
     localStorage.removeItem('token')
     Navigate('/login')
   }
 
   return (
-    <div className='bg-black text-white p-6 pt-9 h-screen w-[15%] '> 
-       <div className="mb-7">
+    <div className=' text-white p-6  h-screen min-h-screen w-[20%] fixed left-0 border-r border-gray-700'> 
+       <div className="mb-7 pt-7">
           <svg
             aria-label="Instagram"
             className="x1lliihq x1n2onr6 x5n08af"
@@ -39,7 +66,7 @@ const Navbar = () => {
             ></path>
           </svg>
         </div>
-        <div >
+        <div className='h-full'>
             <div className='flex items-center gap-3 text-xl mt-7 '>
                 <Link to="/" className='flex items-center gap-3 text-xl'> <span className='text-2xl '><MdHomeFilled/></span> Home</Link>
             </div>
@@ -63,15 +90,17 @@ const Navbar = () => {
             </div>
             <div className='flex items-center gap-3 text-xl mt-7'>
                 <Link to="/profile" className='flex items-center gap-3 text-xl'> 
-                <span><img src="https://images.pexels.com/photos/14240753/pexels-photo-14240753.jpeg" 
+                <span><img src={profile} 
                  className='h-7 w-7 rounded-full'
                  alt="" /></span>
                  Profile</Link>  
             </div>
-            <div>
+            <div className=' absolute bottom-20 w-full'>
                 <button 
                 onClick={() => {handleLogout()}}
-                className=' text-white px-2 cursor-pointer bg-blue-500 rounded-lg mt-7 text-lg'>Logout</button>
+                className=' text-white px-2 cursor-pointer rounded-lg mt-7 text-lg flex items-center gap-1  '><span>
+                    <CiLogout />
+                  </span>Logout</button>
             </div>
         </div>
     </div>  

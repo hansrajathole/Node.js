@@ -11,8 +11,8 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact element={<Protected><Feed/></Protected>} />
-        <Route path="/register" exact element={<Register/>} />
+        <Route path="/" element={<Protected><Feed/></Protected>} />
+        <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Protected><Profile /></Protected>} />
         <Route path='/create' element={<Protected><CreatePost/></Protected>}/>

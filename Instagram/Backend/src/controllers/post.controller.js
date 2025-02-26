@@ -1,8 +1,7 @@
-const User = require("../model/user.model")
-const Post = require("../model/posts.model")
+import Post from "../model/posts.model.js"
+import User from "../model/user.model.js"
 
-
-module.exports.createController = async (req,res) => {
+export const createController = async (req,res) => {
 
     try {
         const {media , caption } = req.body
@@ -29,7 +28,7 @@ module.exports.createController = async (req,res) => {
 }
 
 
-module.exports.likesController = async (req,res) => {
+export const likesController = async (req,res) => {
     try {
         const postId = req.params.id
         const userId = req.user._id

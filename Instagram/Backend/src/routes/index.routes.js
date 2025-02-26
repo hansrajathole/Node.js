@@ -1,10 +1,10 @@
-const express  = require('express');
+import express from "express"
+import {feedController} from "../controllers/index.controller.js"
+import {protecteRoute} from "../middleware/protecteRoute.js"
+
 const router = express.Router()
-const indexController = require("../controllers/index.controller")
-const protecteRoute = require("../middleware/protecteRoute")
+
+router.get("/feed",protecteRoute,feedController)
 
 
-router.get("/feed",protecteRoute,indexController.feedController)
-
-
-module.exports = router
+export default router

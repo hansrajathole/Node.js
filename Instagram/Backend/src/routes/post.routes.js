@@ -1,12 +1,11 @@
-const express  = require('express');
+import express from "express"
+import {createController ,likesController} from "../controllers/post.controller.js"
+import {protecteRoute} from "../middleware/protecteRoute.js"
 const router = express.Router()
-const postController = require("../controllers/post.controller")
-const protecteRoute = require("../middleware/protecteRoute")
 
-
-router.post("/create",protecteRoute,postController.createController)
-router.patch("/update/:id",protecteRoute,postController.likesController)
+router.post("/create",protecteRoute,createController)
+router.patch("/update/:id",protecteRoute, likesController)
 
 
 
-module.exports = router
+export default router

@@ -1,14 +1,31 @@
-const User = require("../model/user.model")
-const Post = require("../model/posts.model")
+import User from '../model/user.model.js';
+import Post from '../model/posts.model.js';
 
-module.exports.feedController = async (req,res) => {
+
+export const feedController = async (req,res) => {
     try {
-        const posts = await Post.find().populate("user")
-        
-        if(!posts) {
-            return res.status(404).json({message: "No posts found"})
-        }
-        res.status(200).json({message: "user feed data found", posts})
+        const user = await User.findById(req.user._id)
+       
+        const posts = await Post.aggregate([
+            {
+              '$lookup': {
+                'from': 'users', 
+                'localField': '_id', 
+                'foreignField': 'posts', 
+                'as': 'author'
+              }
+            }, {
+              '$unwind': {
+                'path': '$author'
+              }
+            }
+          ]);
+
+          
+          // console.log(posts.reverse())
+        posts.reverse()          
+        // res.status(200).json({ post: posts, Profile : req.user.profilePicture});
+        res.status(200).json({message: "user feed data found", posts , user})
         
     } catch (error) {
         console.log(error)

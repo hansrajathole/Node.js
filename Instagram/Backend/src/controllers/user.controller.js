@@ -1,99 +1,69 @@
-const User = require("../model/user.model")
-const Post = require("../model/posts.model")
-const config = require("../config/config")
-const bcrypt = require('bcrypt')
-const jwt = require("jsonwebtoken")
+import User from "../model/user.model.js"
+import Post from "../model/posts.model.js"
+import config from "../config/config.js"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import { validationResult } from "express-validator"
+import * as userService from "../services/user.service.js"
 
-module.exports.registerController = async function(req, res){
+export const registerController = async function(req, res){
+
+
     const {username, email, password} = req.body
 
     try {
 
-    if(!username){
-        return res.status(400).json({message: "username is required"})
-    }
+        const errors = validationResult(req)
     
-    if(!email){
-        return res.status(400).json({message: "email is required"})
-    }
-    
-    if(!password){
-        return res.status(400).json({message: "password is required"})
-    }
+        if(!errors.isEmpty()){
+            return res.status(400).json({message: errors.array()[0].msg})
+        }
+        
+        const user = await userService.createUser({
+            username,
+            email,
+            password
+        })
+ 
+        delete user._doc.password
 
-    const user = await User.findOne({
-        $or: [{username}, {email}]
-    })
-    
-    if(user){
-        return res.status(400).json({message: "user already exists"})
-    }
+        const token =  user.generateToken();
+        
+        res.json({message: "User registered successfully", token: token, user})
 
-    const hashedPassword = await bcrypt.hash(password,10)
-
-    const newUser = new User({
-        username,
-        email,
-        password: hashedPassword
-    })
-    
-    await newUser.save()
-
-    const token = await jwt.sign({
-        id: newUser._id,
-        username: newUser.username,
-        email: newUser.email,
-       
-    },config.JWT_SECRET)
-
-    console.log("user registered successfully");
-    
-    res.json({message: "User registered successfully", token: token})
     } catch (error) {
-        console.log(error)
-        res.status(500).json({message: "Internal Server Error"})
+        console.log("Error in registerController: ", error.message);
+        res.status(500).json({ message: error.message || "Internal Server Error" });
     }
 }
-module.exports.loginController = async function(req, res){
-    const {email, password} = req.body
+export const loginController = async function(req, res){
+    const {email, password , username } = req.body
     try {
 
-        if(!email) {
-            return res.status(400).json({message: "email is required"})
-        }
-        
-        if(!password) {
-            return res.status(400).json({message: "password is required"})
-        }
-        
-        const user = await User.findOne({email})
-        
-        if(!user) {
-            return res.status(401).json({message: "Invalid email or password"})
+        const errors = validationResult(req)
+    
+        if(!errors.isEmpty()){
+            return res.status(400).json({message: errors.array()[0].msg})
         }
 
-        const isMatch = await bcrypt.compare(password, user.password)
+        const user = await userService.loginUser({
+            username,
+            email,
+            password
+        })
         
-        if(!isMatch) {
-            return res.status(401).json({message: "Invalid email or password"})
-        }
-        
-        const token = jwt.sign({
-            id: user._id,
-            username: user.username,
-            email: user.email,
-        },config.JWT_SECRET)
+        const token = await user.generateToken()
         
         console.log("user logged in successfully");
         res.json({message: "User logged in successfully", token: token})
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({message: "Internal Server Error"})   
+        res.status(500).json({message: error.message || "Internal server error"})   
     }
 }
 
-module.exports.profileController = async (req, res) => {
+export const profileController = async (req, res) => {
     try {
         const user = await User.findById(req.user._id).select("-password").populate("posts")
         if(!user) return res.status(404).json({message: "User not found"})

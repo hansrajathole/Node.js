@@ -1,11 +1,16 @@
-const express = require('express');
-const userRouter = require("./routes/user.routes")
-const postRouter = require("./routes/post.routes")
-const indexRouter = require("./routes/index.routes")
-const cors = require("cors")
+import express from "express"
+import userRouter from "./routes/user.routes.js"
+import postRouter from "./routes/post.routes.js"
+import indexRouter from "./routes/index.routes.js"
+import cookieParser from "cookie-parser"
+import morgan from "morgan"
+import cors from "cors"
+
 
 const app = express();
 
+app.use(cookieParser())
+app.use(morgan("dev"))
 app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
@@ -15,5 +20,4 @@ app.use("/user",userRouter)
 app.use("/post",postRouter)
 
 
-
-module.exports = app
+export default app
