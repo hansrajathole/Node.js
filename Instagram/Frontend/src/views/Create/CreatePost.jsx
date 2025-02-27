@@ -15,8 +15,13 @@ const CreatePost = () => {
         e.preventDefault();
         const token = localStorage.getItem("token");
 
-        axios.post('http://localhost:3000/post/create', { media, caption }, {
-            headers: { Authorization: `Bearer ${token}` }
+        const formData = new FormData(e.target)
+    
+
+        axios.post('http://localhost:3000/post/create',formData, {
+            headers: { Authorization: `Bearer ${token}`,
+                        "Content-Type":"multipart/form-data"
+                     }
         })
         .then(response => {
             toast.success(response.data.message);
@@ -39,9 +44,11 @@ const CreatePost = () => {
                     {/* Media Input */}
                     <label className="text-gray-400 text-sm">Upload Image</label>
                     <input
-                        value={media}
-                        onChange={(e) => setMedia(e.target.value)}
-                        type="text"
+                        // value={media}
+                        // onChange={(e) => setMedia(e.target.value)}
+                        accept='image/*'
+                        name='media'
+                        type="file"
                         placeholder="Enter Image URL"
                         className="w-full p-2 bg-gray-900 border border-gray-700 rounded-md text-sm focus:outline-none focus:border-gray-500"
                     />
@@ -49,8 +56,9 @@ const CreatePost = () => {
                     {/* Caption Input */}
                     <label className="text-gray-400 text-sm">Caption</label>
                     <textarea
-                        value={caption}
-                        onChange={(e) => setCaption(e.target.value)}
+                        // value={caption}
+                        // onChange={(e) => setCaption(e.target.value)}
+                        name='caption'
                         placeholder="Write a caption..."
                         className="w-full p-2 bg-gray-900 border border-gray-700 rounded-md text-sm focus:outline-none focus:border-gray-500 resize-none h-20"
                     />

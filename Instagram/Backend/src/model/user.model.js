@@ -83,7 +83,7 @@ userSchema.methods.generateToken = function() {
         id: this._id , 
         username : this.username, 
         email : this.email 
-    }, config.JWT_SECRET)
+    }, config.JWT_SECRET , { expiresIn : config.JWT_EXPAIRE_IN })
 }
 
 userSchema.methods.verifyPassword = async function(password) {

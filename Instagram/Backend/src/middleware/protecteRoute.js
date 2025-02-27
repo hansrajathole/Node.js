@@ -10,15 +10,29 @@ export const protecteRoute = async (req, res, next) => {
         if (!token) {
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
-        const decoded = jwt.verify(token, config.JWT_SECRET);
-        
-        const user = await User.findById(decoded.id);
+        const decoded = await User.verifyToken(token)
 
+        const isTokenBlockListed = await redis.get(`blacklist: ${token}`)
+
+        if(isTokenBlockListed){
+            return res.status(401).json({ message: "Unauthorized: Invalid token" });   
+        }
+        let user = await redis.get(`user : ${decoded.id}`)
+        if(user){
+            user = JSON.parse(user)
+        }
         if (!user) {
-            return res.status(401).json({ message: "Unauthorized: User not found" });
+            user = await User.findById(decoded.id)
+            if(user){
+                delete user._doc.password
+                await redis.set(`user : ${decoded.id}`, JSON.stringify(user))
+            }else{
+                return res.status(401).json({ message: "Unauthorized: User not found" });
+            }    
         }
 
         req.user = user;
+        req.tokenData = {token , ...decoded}
         next();
 
     } catch (error) {

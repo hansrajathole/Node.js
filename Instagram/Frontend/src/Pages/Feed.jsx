@@ -91,7 +91,7 @@ const Feed = () => {
   return (
     <div className=" w-full bg-black text-white flex justify-end relative font-light">
       <Navbar />
-      <div className="w-[80%] h-full overflow-auto flex flex-col justify-center items-center gap-3 pt-8 ">
+      <div className="w-[80%] min-h-screen overflow-auto flex flex-col justify-center items-center gap-3 pt-8 ">
         <div className="w-[30rem]  ">
           {posts?.map((post, index) => (
             <div key={index} className=" flex flex-col mb-2 rounded-md p-4">
@@ -101,7 +101,7 @@ const Feed = () => {
                     <div className="flex gap-2 items-center cursor-pointer">
                       <img
                         src={post?.author?.profilePicture}
-                        alt=""
+                        alt="profilePicture"
                         className="w-8 h-8 rounded-full"
                       />
                       <div className="flex flex-col"> 
@@ -153,7 +153,8 @@ const Feed = () => {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+          }
         </div>
       </div>
     </div>

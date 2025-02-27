@@ -6,7 +6,7 @@ import axios from "axios";
 const Profile = () => {
   const Navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-
+  const [posts, setposts] = useState([])
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -14,6 +14,8 @@ const Profile = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
+        setposts(res.data.posts);
+        
         setUserData(res.data.userData);
       })
       .catch((err) => {
@@ -49,7 +51,7 @@ const Profile = () => {
                 </button>
               </div>
               <div className="flex gap-8 mt-4">
-                <span>{userData?.posts?.length} posts</span>
+                <span>{posts?.length} posts</span>
                 <span>{userData?.followers?.length} followers</span>
                 <span>{userData?.following?.length} following</span>
               </div>
@@ -74,20 +76,20 @@ const Profile = () => {
           {/* Posts Section */}
           <div className="border-t border-gray-700 mt-8 w-[60%]">
             <div className="flex justify-center gap-10 py-4">
-              <span className="border-b-2 border-white pb-2">Posts</span>
-              <span className="text-gray-500">Saved</span>
-              <span className="text-gray-500">Tagged</span>
+              <span className="border-b-2 border-white pb-2 cursor-pointer">Posts</span>
+              <span className="text-gray-500 cursor-pointer">Saved</span>
+              <span className="text-gray-500 cursor-pointer">Tagged</span>
             </div>
 
             <div className="grid grid-cols-3 gap-4 mt-4">
-              {userData?.posts?.map((post, index) => (
+              {posts?.map((post, index) => (
                 <div key={index} className="relative group">
                   <img
                     src={post.media}
                     alt="Post"
                     className="h-48 w-48 object-cover"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex justify-center items-center">
+                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-70 flex justify-center items-center">
                     <p className="text-white">{post.caption}</p>
                   </div>
                 </div>

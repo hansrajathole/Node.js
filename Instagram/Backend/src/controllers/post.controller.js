@@ -4,23 +4,27 @@ import User from "../model/user.model.js"
 export const createController = async (req,res) => {
 
     try {
-        const {media , caption } = req.body
-        const useerId = req.user._id
+        const media = req.body.image.url
+        const {caption} = req.body
+        
+        const userId = req.user._id
         if(!media) return res.status(400).json({message: "media is required"})
         if(!caption) return res.status(400).json({message: "caption is required"})
             
         const newPost = new Post({
-            user: useerId,
+            user: userId,
             media, 
             caption
         })
         await newPost.save()
-        await User.findOneAndUpdate(req.user._id,{
+        const user = await User.findOneAndUpdate({_id : req.user._id},{
             $push: {posts: newPost._id}
         })
+        console.log(user);
         res.status(201).json({message: "Post Created successfully", postData: newPost})
         
-    } catch (error) {
+    }
+     catch (error) {
         console.log(error)
         res.status(500).json({message: "Internal Server Error"})
         

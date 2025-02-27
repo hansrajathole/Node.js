@@ -49,7 +49,6 @@ export const loginUser = async function({email, username, password}){
     }
 
     const isMatch = await user.verifyPassword(password)
-    console.log(isMatch);
     
     if(!isMatch){
         throw new Error("username or password is incorrect")

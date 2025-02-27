@@ -92,7 +92,7 @@ const Navbar = () => {
                 <Link to="/profile" className='flex items-center gap-3 text-xl'> 
                 <span><img src={profile} 
                  className='h-7 w-7 rounded-full'
-                 alt="" /></span>
+                 alt="profilePicture" /></span>
                  Profile</Link>  
             </div>
             <div className=' absolute bottom-20 w-full'>

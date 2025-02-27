@@ -3,6 +3,7 @@ import Post from "../model/posts.model.js"
 import config from "../config/config.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import redis from "../services/redis.service.js"
 import { validationResult } from "express-validator"
 import * as userService from "../services/user.service.js"
 
@@ -64,15 +65,28 @@ export const loginController = async function(req, res){
 }
 
 export const profileController = async (req, res) => {
-    try {
-        const user = await User.findById(req.user._id).select("-password").populate("posts")
-        if(!user) return res.status(404).json({message: "User not found"})
-            
-        res.status(200).json({message: "user data found", userData : user})
+
+    try {         
+        
+        const posts = await Post.getAuthorPosts(req.user._id)
+        console.log(posts);
+        
+        res.status(200).json({message: "user data found", userData : req.user , posts })
         
     } catch (error) {
         console.log(error)
         res.status(500).json({message: "Internal Server Error"})
     }
     
+}
+
+
+export const logoutController = async (req, res) => {
+    
+    const timeRemainingForToken = req.tokenData.exp * 1000 - Date.now()
+    console.log(timeRemainingForToken);
+    
+    await redis.set(`blacklist: ${req.tokenData.token}`, true , "EX" ,Math.floor(timeRemainingForToken/1000))
+
+    res.send("logout successfully")
 }
