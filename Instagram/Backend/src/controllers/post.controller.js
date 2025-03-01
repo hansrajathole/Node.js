@@ -1,5 +1,8 @@
 import Post from "../model/posts.model.js"
 import User from "../model/user.model.js"
+import { generateCaption } from "../services/ai.service.js"
+
+
 
 export const createController = async (req,res) => {
 
@@ -54,4 +57,11 @@ export const likesController = async (req,res) => {
         res.status(500).json({message: "Internal Server Error"})
         
     }
+}
+
+
+export const createCaption = async (req , res) => {
+    const imageBuffer = req.file.buffer
+    const caption = await generateCaption(imageBuffer)
+    res.status(201).json({caption})
 }

@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import { Readable } from "stream"
 
 
-export const createPost = async (req, res,next)=>{
+export const createPost = async (req, res, next)=>{
 
     try {
         
@@ -23,3 +23,4 @@ export const createPost = async (req, res,next)=>{
     }
     
 }
+

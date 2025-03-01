@@ -7,9 +7,7 @@ import imagekit from "../services/imagekit.service.js"
 import mongoose from "mongoose"
 
 const router = express.Router()
-
-const storage = multer.memoryStorage()
-const upload = multer({ storage })
+const upload = multer({ storage : multer.memoryStorage() })
 
 router.post("/create",protecteRoute, upload.single("media"),postMiddleware.createPost , postController.createController )
 router.patch("/update/:id",protecteRoute, postController.likesController)

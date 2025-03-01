@@ -1,15 +1,11 @@
 import { Router } from "express";
-import generateContent from "../services/ai.service.js"
+import * as postController from "../controllers/post.controller.js"
+import { protecteRoute } from "../middleware/protecteRoute.js";
+import multer from "multer";
+const upload = multer({ storage : multer.memoryStorage() })
 const router = Router()
 
-router.get("/", async function(req,res){
-    const prompt = req.query.prompt
-    
-    const response = await generateContent(prompt)
-    console.log(response);
-    
-    res.json({message : response})
-})
+router.post("/",upload.single("media"),protecteRoute , postController.createCaption)
 
 
 export default router
