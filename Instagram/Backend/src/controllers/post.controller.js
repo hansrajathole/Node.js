@@ -16,7 +16,11 @@ export const createController = async (req,res) => {
             
         const newPost = new Post({
             user: userId,
-            media, 
+            media :{
+                id : req.body.image.fileId,
+                url : req.body.image.url,
+                thumnailURL : req.body.image.thumbnailUrl
+            } , 
             caption
         })
         await newPost.save()

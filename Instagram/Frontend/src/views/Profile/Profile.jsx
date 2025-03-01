@@ -120,14 +120,14 @@ const Profile = () => {
 
             <div className="grid grid-cols-3 gap-4 mt-4">
               {posts?.map((post, index) => (
-                <div key={index} className="relative group overflow-hidden rounded-lg">
+                <div key={index} className="relative group overflow-hidden">
                   <img
-                    src={post.media}
+                    src={post.media.url}
                     alt="Post"
                     className="h-48 w-48 object-cover transition duration-300 transform group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-70 flex justify-center items-center transition duration-300">
-                    <p className="text-white">{post.caption}</p>
+                  <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-80 flex justify-center items-center transition duration-300">
+                    <p className="text-white text-center font-medium">{post.caption}</p>
                   </div>
                 </div>
               ))}

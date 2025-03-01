@@ -99,7 +99,7 @@ const Feed = () => {
                   </span>
                 </div>
                 <div className="border border-gray-700 mt-2">
-                  <img src={post.media} alt="post" className="w-full h-[35rem] object-contain" />
+                  <img src={post.media.url} alt="post" className="w-full h-[35rem] object-contain" />
                 </div>
                 <div className="mt-2 flex justify-between">
                   <div className="flex gap-3 text-2xl">
