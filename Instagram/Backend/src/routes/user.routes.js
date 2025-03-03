@@ -9,5 +9,7 @@ router.post("/register",userMiddleware.registerValidator, userController.registe
 router.post("/login",userMiddleware.loginUserValidator , userController.loginController)
 router.get("/profile",protecteRoute.protecteRoute, userController.profileController)
 router.get("/logout",protecteRoute.protecteRoute, userController.logoutController )
+router.patch("/follow/:id", protecteRoute.protecteRoute , userController.followUnfollowController)
+
 
 export default router

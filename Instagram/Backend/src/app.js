@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended : true }));
 
 app.use("/",indexRouter)
 app.use("/ai",aiRouter)
-app.use("/user",userRouter)
+app.use("/users",userRouter)
 app.use("/post",postRouter)
 
 

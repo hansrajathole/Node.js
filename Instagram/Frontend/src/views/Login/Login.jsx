@@ -12,7 +12,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         
-        axios.post('http://localhost:3000/user/login', { email, password })
+        axios.post('http://localhost:3000/users/login', { email, password })
         .then(response => {
             console.log(response)
             localStorage.setItem("token",response?.data?.token)

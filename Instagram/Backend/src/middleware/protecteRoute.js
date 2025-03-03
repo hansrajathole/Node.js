@@ -5,12 +5,15 @@ import redis from '../services/redis.service.js';
 
 export const protecteRoute = async (req, res, next) => {
     try {
-
+        console.log("ye chala kya ");
+        
         const token = req.headers.authorization?.split(" ")[1] || req.cookies.token;
         if (!token) {
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
         const decoded = await User.verifyToken(token)
+
+       
 
         const isTokenBlockListed = await redis.get(`blacklist: ${token}`)
 
@@ -30,7 +33,7 @@ export const protecteRoute = async (req, res, next) => {
                 return res.status(401).json({ message: "Unauthorized: User not found" });
             }    
         }
-
+        
         req.user = user;
         req.tokenData = {token , ...decoded}
         next();

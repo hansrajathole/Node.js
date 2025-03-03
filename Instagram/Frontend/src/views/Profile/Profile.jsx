@@ -13,11 +13,13 @@ const Profile = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3000/user/profile", {
+      .get("http://localhost:3000/users/profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         setposts(res.data.posts);
+        console.log(res);
+        
         setUserData(res.data.userData);
       })
       .catch((err) => {

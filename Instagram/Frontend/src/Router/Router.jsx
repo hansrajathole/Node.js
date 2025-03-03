@@ -6,6 +6,7 @@ import Profile from '../views/Profile/Profile'
 import Navbar from '../components/Navbar/Navbar'
 import Protected from '../components/Protected/Protected'
 import CreatePost from '../views/Create/CreatePost'
+import UserProfile from '../views/UserProfile/UserProfile'
 import Feed from '../Pages/Feed'
 const AppRouter = () => {
   return (
@@ -15,6 +16,7 @@ const AppRouter = () => {
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Protected><Profile /></Protected>} />
+        <Route path='/user/:userId' element={<Protected><UserProfile/></Protected>}/>
         <Route path='/create' element={<Protected><CreatePost/></Protected>}/>
       </Routes>
     </Router>

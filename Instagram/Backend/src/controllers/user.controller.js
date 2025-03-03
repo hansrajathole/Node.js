@@ -1,8 +1,6 @@
 import User from "../model/user.model.js"
 import Post from "../model/posts.model.js"
-import config from "../config/config.js"
-import bcrypt from "bcryptjs"
-import jwt from "jsonwebtoken"
+
 import redis from "../services/redis.service.js"
 import { validationResult } from "express-validator"
 import * as userService from "../services/user.service.js"
@@ -66,12 +64,14 @@ export const loginController = async function(req, res){
 
 export const profileController = async (req, res) => {
 
+    console.log(req.user)
     try {         
         
-        const posts = await Post.getAuthorPosts(req.user._id)
-        console.log(posts);
         
-        res.status(200).json({message: "user data found", userData : req.user , posts })
+        const posts = await Post.getAuthorPosts(req.user._id)
+        const user = await User.findById(req.user._id).lean()
+        
+        res.status(200).json({message: "user data found", userData : user , posts })
         
     } catch (error) {
         console.log(error)
@@ -89,4 +89,45 @@ export const logoutController = async (req, res) => {
     await redis.set(`blacklist: ${req.tokenData.token}`, true , "EX" ,Math.floor(timeRemainingForToken/1000))
 
     res.send("logout successfully")
+}
+
+export const followUnfollowController = async (req , res) => {
+    try {
+        const {id} = req.params
+        const userToModify = await User.findById(id)
+        const currentUser = await User.findById(req.user._id)
+
+        if(id===req.user._id.toString()){
+            return res.status(400).json({error : "you can't follow or unfollow your self"})
+        }
+
+        if(!userToModify || !currentUser){
+            return res.status(400).json({error : "user not found"})
+        }
+
+        const isfollowing = currentUser.following.includes(id)
+
+        if(isfollowing){
+            await User.findByIdAndUpdate(id,{$pull:{followers : req.user._id}})
+            await User.findByIdAndUpdate(req.user._id ,{ $pull : { following : id }})
+            const userPost = await User.findById(id).lean()
+            const selfData = await User.findById(req.user._id ).lean()
+            //  TODO: return the id of the user as response
+            res.status(200).json({message : "User unfollowed successfully" , postData : userPost , selfData})
+        }else {
+            await User.findByIdAndUpdate(id,{$push:{followers : req.user._id}})
+            await User.findByIdAndUpdate(req.user._id ,{ $push : { following : id }})
+            //  TODO: return the id of the user as response
+            const userPost = await User.findById(id).lean()
+            const selfData = await User.findById(req.user._id ).lean()
+            res.status(200).json({message : "User followed successfully",postData : userPost , selfData})
+                    
+        }
+
+
+    } catch (error) {
+        console.log("error in followUnfollowUser ", error.message);
+        res.status(500).json({error : error.message})
+        
+    }
 }

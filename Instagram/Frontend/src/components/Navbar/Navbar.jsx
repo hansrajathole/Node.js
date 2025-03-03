@@ -23,7 +23,7 @@ const Navbar = () => {
     useEffect(() => {
         
       const token = localStorage.getItem('token')
-      axios.get("http://localhost:3000/user/profile",{
+      axios.get("http://localhost:3000/users/profile",{
           headers :{
               Authorization: `Bearer ${token}`
           }

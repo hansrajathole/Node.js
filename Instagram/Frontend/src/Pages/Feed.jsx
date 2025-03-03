@@ -11,6 +11,7 @@ const Feed = () => {
   const Navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState({});
+  const [isfollow, setisfollow] = useState(false)
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -27,11 +28,13 @@ const Feed = () => {
       .then((res) => {
         setPosts(res?.data?.posts);
         setUser(res.data.user);
+        console.log(res.data.posts);
+        
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [Navigate]);
+  }, [Navigate || isfollow]);
 
   const likesHandler = (postId) => {
     axios
@@ -56,6 +59,30 @@ const Feed = () => {
       });
   };
 
+  const followUnfollowHandler = (updateUserId)=>{
+    axios.patch(`http://localhost:3000/users/follow/${updateUserId}`, {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res)=>{
+        console.log(res);
+        
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post.author._id === updateUserId
+              ? { ...post, author: { ...post.author, followers: res.data.postData.followers } } // Only updating author fields
+              : post
+          )
+        );
+        console.log(posts);
+        
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  }
   const calculateHoursAgo = (createdAt) => {
     if (!createdAt) return "Unknown";
     const postDate = new Date(createdAt);
@@ -88,10 +115,22 @@ const Feed = () => {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center justify-between w-full">
                   <div className="flex gap-2 items-center cursor-pointer">
-                    <img src={post?.author?.profilePicture} alt="profilePicture" className="w-8 h-8 rounded-full" />
+                    <img
+                      onClick={() => Navigate(`/user/${post?.author?._id}`)}   
+                     src={post?.author?.profilePicture} alt="profilePicture" className="w-9 h-9 rounded-full" />
                     <div className="flex flex-col leading-tight">
                       <h2 className="font-medium">{post?.author?.username}</h2>
-                      <p className="text-sm opacity-70">{calculateHoursAgo(post?.createdAt)}</p>
+                      <p className="text-[0.8em] opacity-70">{calculateHoursAgo(post?.createdAt)}</p>
+                    </div>
+                    <div className="p-2">
+                     
+                     {!post.author.followers.includes(user._id) ?
+                      <button 
+                      onClick={()=>followUnfollowHandler(post?.author?._id)}
+                      className="text-blue-500 rounded font-medium cursor-pointer"><span className="text-white">•</span> follow</button> : 
+                        <div></div>
+                      }
+                      
                     </div>
                   </div>
                   <span className="cursor-pointer pr-2">
