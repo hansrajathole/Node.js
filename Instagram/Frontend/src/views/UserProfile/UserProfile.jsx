@@ -109,7 +109,7 @@ const UserProfile = () => {
           <div className="border-t border-gray-700 mt-8 w-[60%]">
             <div className="flex justify-center gap-10 py-4">
               <span className="border-b-2 border-white pb-2 cursor-pointer">Posts</span>
-              <span className="text-gray-500 cursor-pointer">Saved</span>
+              <span className="text-gray-500 cursor-pointer">Reels</span>
               <span className="text-gray-500 cursor-pointer">Tagged</span>
             </div>
 

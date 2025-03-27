@@ -84,7 +84,6 @@ export const profileController = async (req, res) => {
 export const logoutController = async (req, res) => {
     
     const timeRemainingForToken = req.tokenData.exp * 1000 - Date.now()
-    console.log(timeRemainingForToken);
     
     await redis.set(`blacklist: ${req.tokenData.token}`, true , "EX" ,Math.floor(timeRemainingForToken/1000))
 
@@ -130,4 +129,11 @@ export const followUnfollowController = async (req , res) => {
         res.status(500).json({error : error.message})
         
     }
+}
+
+
+export const editProfileController = async (req, res) => {
+    
+    const { profilePicture } = req.file
+    
 }

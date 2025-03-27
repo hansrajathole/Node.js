@@ -32,8 +32,6 @@ const userSchema = new mongoose.Schema({
     profilePicture: { 
         type: String,
         default: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
-
-
     },
     posts : [
         {
@@ -73,7 +71,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: '',
     },
-    
+    bookmark : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Post"
+    }
 
 }, { timestamps: true })
 

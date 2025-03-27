@@ -10,9 +10,14 @@ import cors from "cors"
 
 const app = express();
 
+const corsOptions = {
+    origin : "http://localhost:5173",
+    Credential : true
+}
 app.use(cookieParser())
 app.use(morgan("dev"))
-app.use(cors())
+
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 

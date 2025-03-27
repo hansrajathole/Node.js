@@ -24,3 +24,27 @@ export const createPost = async (req, res, next)=>{
     
 }
 
+
+
+export const updateFiles = async (req, res, next)=>{
+
+    try {
+        
+        const file = await imagekit.upload({
+            file :  Readable.from(req.file.buffer),
+            fileName : new mongoose.Types.ObjectId().toString("base64"),
+            isPublished : true,
+            isPrivateFile : false
+        }) 
+    
+        req.body.image = file.url
+        
+        next()
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({ message : error.message })
+    }
+    
+}
+
+
